@@ -1,0 +1,22 @@
+{
+  "name": "directory_graph",
+  "version": "1.0.0",
+  "description": "Its an app which shows the directory structure in the form of graph.",
+  "main": "main.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CrazyCompiler/directoryGraph.git"
+  },
+  "author": "Viraj Parab",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CrazyCompiler/directoryGraph/issues"
+  },
+  "homepage": "https://github.com/CrazyCompiler/directoryGraph#readme",
+  "dependencies": {
+    "shelljs": "^0.7.3"
+  }
+}
