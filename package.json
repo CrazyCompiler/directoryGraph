@@ -3,8 +3,23 @@
   "version": "1.0.0",
   "description": "Its an app which shows the directory structure in the form of graph.",
   "main": "main.js",
+  "dependencies": {},
+  "devDependencies": {
+    "browserify": "^13.1.0",
+    "del": "^2.2.1",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-html-replace": "^1.6.1",
+    "gulp-react": "^3.1.0",
+    "gulp-streamify": "^1.0.2",
+    "gulp-uglify": "^2.0.0",
+    "reactify": "^1.1.1",
+    "run-sequence": "^1.2.2",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.7.0"
+  },
   "scripts": {
-    "test": "npm test"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -15,8 +30,5 @@
   "bugs": {
     "url": "https://github.com/CrazyCompiler/directoryGraph/issues"
   },
-  "homepage": "https://github.com/CrazyCompiler/directoryGraph#readme",
-  "dependencies": {
-    "shelljs": "^0.7.3"
-  }
+  "homepage": "https://github.com/CrazyCompiler/directoryGraph#readme"
 }
