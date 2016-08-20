@@ -6,7 +6,7 @@ var browserify = require('browserify');
 var watchify = require('watchify');
 var reactify = require('reactify');
 var streamify = require('gulp-streamify');
-var del = require("del");
+var del = require('del');
 var runSequence = require('run-sequence');
 
 var path = {
@@ -16,40 +16,31 @@ var path = {
     DEST: './out',
     DEST_BUILD: './out/public',
     DEST_SRC: './out/src',
-    ENTRY_POINT: './assets/javascript/main.js'
-
+    ENTRY_POINT: './assets/javascript/main.js',
+    MAINJS: './main.js',
+    PACKAGEJSON: './package.json'
 };
-gulp.task('copy-index', function(){
+
+gulp.task('copy-index-html', function(){
     gulp.src(path.HTML)
         .pipe(gulp.dest(path.DEST));
 
+});
+
+gulp.task('copy-main-js', function(){
+    gulp.src(path.MAINJS)
+        .pipe(gulp.dest(path.DEST));
+});
+
+gulp.task('copy-package-json', function(){
+    gulp.src(path.PACKAGEJSON)
+        .pipe(gulp.dest(path.DEST));
 });
 
 gulp.task('clean', function(){
   del.sync(path.DEST);
 })
 
-gulp.task('watch', function() {
-    gulp.watch(path.HTML, ['copy']);
-    var watcher  = watchify(browserify({
-        entries: [path.ENTRY_POINT],
-        transform: [reactify],
-        debug: true,
-        cache: {}, packageCache: {}, fullPaths: true
-
-    }));
-    return watcher.on('update', function () {
-        watcher.bundle()
-            .pipe(source(path.OUT))
-            .pipe(gulp.dest(path.DEST_SRC))
-        console.log('Updated');
-
-    })
-        .bundle()
-        .pipe(source(path.OUT))
-        .pipe(gulp.dest(path.DEST_SRC));
-
-});
 gulp.task('build-assets', function(){
     browserify({
         entries: [path.ENTRY_POINT],
@@ -63,8 +54,16 @@ gulp.task('build-assets', function(){
 
 });
 
-gulp.task("build", function(cb) {
-    runSequence('clean','build-assets','copy-index',function(){
+gulp.task('copy-assets', [
+    'copy-index-html',
+    'build-assets',
+    'copy-main-js',
+    'copy-package-json'
+
+]);
+
+gulp.task('build', function(cb) {
+    runSequence('clean','copy-assets',function(){
         cb();
     })
 })

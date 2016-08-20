@@ -1,3 +1,5 @@
-var os = require('os')
+const os = require('os');
 
-console.log("hello world",os);
+console.log(os);
+
+alert("hello world");
