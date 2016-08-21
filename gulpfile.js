@@ -20,7 +20,7 @@ var path = {
     DEST: './out',
     DEST_BUILD: './out/public',
     DEST_SRC: './out/src',
-    ENTRY_POINT: './assets/javascript/main.js',
+    ENTRY_POINT: './javascript/main.js',
     MAINJS: './main.js',
     PACKAGEJSON: './package.json',
    COVERAGE: './coverage'
