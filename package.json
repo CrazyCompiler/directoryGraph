@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Its an app which shows the directory structure in the form of graph.",
   "main": "main.js",
-  "dependencies": {},
+  "dependencies": {
+    "gulp-logger": "0.0.2"
+  },
   "devDependencies": {
     "babelify": "^7.3.0",
     "browserify": "^13.1.0",
@@ -15,6 +17,7 @@
     "gulp-react": "^3.1.0",
     "gulp-streamify": "^1.0.2",
     "gulp-uglify": "^2.0.0",
+    "jest": "^14.1.0",
     "react": "^0.14.8",
     "react-dom": "^0.14.6",
     "reactify": "^1.1.1",
@@ -24,7 +27,7 @@
   },
   "scripts": {
     "start": "electron ./out/main.js",
-    "test": "mocha"
+    "test": "node_modules/.bin/jest --coverage"
   },
   "repository": {
     "type": "git",

@@ -10,6 +10,8 @@ var del = require('del');
 var runSequence = require('run-sequence');
 var babelify = require('babelify');
 
+const spawn = require('child_process').spawn;
+
 var path = {
     HTML: './assets/index.html',
     MINIFIED_OUT: 'main.min.js',
@@ -20,13 +22,18 @@ var path = {
     DEST_SRC: './out/src',
     ENTRY_POINT: './assets/javascript/main.js',
     MAINJS: './main.js',
-    PACKAGEJSON: './package.json'
+    PACKAGEJSON: './package.json',
+   COVERAGE: './coverage'
 };
 
 var dependencies = [
   'react',
   'react-dom',
 ];
+
+gulp.task("test", function() {
+    spawn('npm', ['test'], {stdio: 'inherit'})
+});
 
 gulp.task('copy-index-html', function(){
     gulp.src(path.HTML)
@@ -44,8 +51,9 @@ gulp.task('copy-package-json', function(){
 });
 
 gulp.task('clean', function(){
-  del.sync(path.DEST);
-})
+    del.sync(path.DEST);
+    del.sync(path.COVERAGE);
+});
 
 gulp.task('build-main-js', function(){
     browserify({
