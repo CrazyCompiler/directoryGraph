@@ -1,0 +1,16 @@
+Header :
+    -   Title
+    -   Search
+    -   Directory path
+
+Footer :
+    - Details about the site
+
+Body :
+    - Graph
+
+Steps:
+    - Setup Header,Body,Footer components.
+    - Get the user base directory details.
+    - Store the details in the store.
+    - Use the data stored in the store to show on the graphs.
