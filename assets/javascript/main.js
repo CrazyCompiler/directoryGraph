@@ -1,5 +1,7 @@
-const os = require('os');
+import React, { Component } from 'react';
+import ReactDOM from "react-dom";
 
-console.log(os);
+import Wrapper from "./components/Wrapper";
 
-alert("hello world");
+const app = document.getElementById('app');
+ReactDOM.render(<Wrapper />, app);

@@ -8,10 +8,12 @@ var reactify = require('reactify');
 var streamify = require('gulp-streamify');
 var del = require('del');
 var runSequence = require('run-sequence');
+var babelify = require('babelify');
 
 var path = {
     HTML: './assets/index.html',
     MINIFIED_OUT: 'main.min.js',
+    MINIFIED_VENDOR: 'vendor.min.js',
     OUT: 'index.js',
     DEST: './out',
     DEST_BUILD: './out/public',
@@ -21,10 +23,14 @@ var path = {
     PACKAGEJSON: './package.json'
 };
 
+var dependencies = [
+  'react',
+  'react-dom',
+];
+
 gulp.task('copy-index-html', function(){
     gulp.src(path.HTML)
         .pipe(gulp.dest(path.DEST));
-
 });
 
 gulp.task('copy-main-js', function(){
@@ -41,22 +47,29 @@ gulp.task('clean', function(){
   del.sync(path.DEST);
 })
 
-gulp.task('build-assets', function(){
+gulp.task('build-main-js', function(){
     browserify({
         entries: [path.ENTRY_POINT],
-        transform: [reactify],
+    }).transform(babelify, {presets: ['es2015', 'react']}) // Babel transforms
+    .bundle()
+    .pipe(source(path.MINIFIED_OUT))
+    .pipe(streamify(uglify(path.MINIFIED_OUT)))
+    .pipe(gulp.dest(path.DEST_BUILD));
+});
 
-    })
+gulp.task('build-vendor-js', function(){
+    browserify()
+        .require(dependencies)
         .bundle()
-        .pipe(source(path.MINIFIED_OUT))
-        .pipe(streamify(uglify(path.MINIFIED_OUT)))
+        .pipe(source(path.MINIFIED_VENDOR))
+        .pipe(streamify(uglify(path.MINIFIED_VENDOR)))
         .pipe(gulp.dest(path.DEST_BUILD));
-
 });
 
 gulp.task('copy-assets', [
     'copy-index-html',
-    'build-assets',
+    'build-main-js',
+    'build-vendor-js',
     'copy-main-js',
     'copy-package-json'
 
@@ -72,7 +85,6 @@ gulp.task('replaceHTML', function(){
     gulp.src(path.HTML)
         .pipe(htmlreplace({
             'js': 'build/' + path.MINIFIED_OUT
-
         }))
         .pipe(gulp.dest(path.DEST));
 
