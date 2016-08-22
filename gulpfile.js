@@ -4,7 +4,6 @@ var htmlreplace = require('gulp-html-replace');
 var source = require('vinyl-source-stream');
 var browserify = require('browserify');
 var watchify = require('watchify');
-var reactify = require('reactify');
 var streamify = require('gulp-streamify');
 var del = require('del');
 var runSequence = require('run-sequence');
@@ -31,7 +30,7 @@ var dependencies = [
   'react-dom',
 ];
 
-gulp.task("test", function() {
+gulp.task("test",["clean"], function() {
     spawn('npm', ['test'], {stdio: 'inherit'})
 });
 
